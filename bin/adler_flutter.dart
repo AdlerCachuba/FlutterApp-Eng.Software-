@@ -3,14 +3,17 @@ import 'dart:io';
 
 void main(List<String> arguments) {
   print('digite seu nome');
+
   String nome = stdin.readLineSync();
 
   print('Digite sua idade:');
   String entradaIdade = stdin.readLineSync();
+
   var idade = int.parse(entradaIdade);
 
   print('Informe o seu salário');
   String entradaSalario = stdin.readLineSync();
+
   double salario = double.parse(entradaSalario);
 
   print('Seu nome é $nome, sua idade é $idade e seu salário é $salario');
