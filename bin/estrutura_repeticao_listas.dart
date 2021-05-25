@@ -30,7 +30,7 @@ void main(List<String> arguments) {
     }
 
     if (opcao == '5') {
-      print('saindo..');
+      print('saindo do programa..');
       break;
     }
   }
