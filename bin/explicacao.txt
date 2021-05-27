@@ -1,0 +1,9 @@
+Parametros nomeados
+
+Características: É quando colocamos um tipo e uma variável como parametro, e quando usado em {} ele não torna obrigatório o parametro para execução da função
+Vantagens: É possível usar as {} para quando não temos certeza que vamos receber um parametro. E é útil para definir o que vamos usar na função.
+
+Funções anônimas
+
+Características: É quando a função não tem um nome, e ela é executada apenas uma vez. Um exemplo de função anônima é a arrow function => .
+Vantagens: A vantagem de ser executada somente uma vez, é que podemos usar isso dentro de uma função quando precisamos para algo específico, sem a necessidade de definir uma função que será usada apenas uma vez.
