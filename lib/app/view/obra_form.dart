@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adler/app/data/data.dart';
 import 'package:flutter_adler/app/model/obra.dart';
 
+// extends State<MyStatefulWidget>
 class ObraForm extends StatelessWidget{
   final _form = GlobalKey<FormState>();
   bool variavel;
-  int _groupValue = -1;
+
 
   @override
   Widget build(BuildContext context) {

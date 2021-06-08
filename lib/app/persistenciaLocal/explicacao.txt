@@ -1,0 +1,16 @@
+Quando usamos uma função assíncrona precisamos sinalizar para a função que vai executar ela colocando o async.
+Usamos funções assíncronas porque elas não são executadas naquele exato momento, como por exemplo uma busca no banco de dados,
+que pode demorar alguns segundos para retornar o valor. E quando precisamos esperar por esse valor, usamos a palavra await antes da função,
+para esperar ela ser executada, e então continuar.
+Por exemplo:
+
+void main() async {
+await buscaDadosNoBanco;
+
+Future buscaDadosNoBanco {
+return Future(...)
+}
+}
+
+Aqui precisamos definir o Future na função, e quando usamos o future podemos usar o delayed, que define a duração de segundos que irá demorar,
+e enquanto isso o codigo pode ir rodando normalmente, e quando estiver pronto, irá mostrar.
