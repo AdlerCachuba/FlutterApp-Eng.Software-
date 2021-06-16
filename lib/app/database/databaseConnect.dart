@@ -27,6 +27,7 @@ class DatabaseConnect{
     final intType = 'INTEGER NOT NULL';
     final textType = 'TEXT NOT NULL';
     final varType = 'VARCHAR(255) NOT NULL';
+
     final varFKType = 'INTEGER';
 
   //Tabela Obra
