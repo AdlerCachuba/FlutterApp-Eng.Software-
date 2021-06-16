@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adler/app/data/data.dart';
+import 'package:flutter_adler/app/database/databaseConnect.dart';
+import 'package:flutter_adler/app/model/newObra.dart';
 import 'package:flutter_adler/app/model/obra.dart';
 
 // extends State<MyStatefulWidget>
-class ObraForm extends StatelessWidget{
+class ObraForm extends StatefulWidget {
+  @override
+  _ObraFormState createState() => _ObraFormState();
+}
+
+class _ObraFormState extends State<ObraForm> {
   final _form = GlobalKey<FormState>();
-  bool variavel;
+
+  int variavel;
+
+  int quantidade;
+
+  var nome , ativo,  foto;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    variavel = 0;
+  }
+
+  setSelectRadio(int val){
+    setState(() {
+      variavel = val;
+    });
+  }
 
 
   @override
@@ -18,11 +44,7 @@ class ObraForm extends StatelessWidget{
             IconButton(
                 icon: Icon(Icons.save),
                 onPressed: () {
-                  _form.currentState.save();
-                  if (_obra.nome.isNotEmpty) {
-                    lista.add(_obra);
-                    _obra = Obra();
-                  }
+                  salvar();
                   Navigator.of(context).pushNamed('lista');
                 })
           ],
@@ -32,35 +54,49 @@ class ObraForm extends StatelessWidget{
           child: Form(
               key: _form,
               child: Column(
-                children:<Widget> [
+                children: <Widget>[
                   TextFormField(
                       onSaved: (value) => _obra.nome = value,
+                      onChanged: (value){
+                        nome = value;
+                      },
                       decoration: InputDecoration(labelText: 'nome:')),
-
                   ListTile(
                     title: const Text('Ativo'),
-                    leading: Radio<bool>(
-                        value: variavel,
-                        groupValue: variavel,
-
-                        onChanged: (value) => _obra.ativo = true),
+                    leading: Radio(
+                      value: 1,
+                      groupValue: variavel,
+                      onChanged: (value){
+                        setSelectRadio(value);
+                        _obra.ativo = true;
+                        ativo = "ativo";
+                      },
+                    ),
                   ),
                   ListTile(
                     title: const Text('Inativo'),
-                    leading: Radio<bool>(
-                        value: variavel,
-                        groupValue: variavel ,
-
-                        onChanged: (value) => _obra.ativo = false),
+                    leading: Radio(
+                      value: 2,
+                      groupValue: variavel,
+                      onChanged: (value){
+                        setSelectRadio(value);
+                        _obra.ativo = false;
+                        ativo = "falso";
+                      },
+                    ),
                   ),
-
-
                   TextFormField(
                     onSaved: (value) => _obra.quantidade = int.parse(value),
+                    onChanged: (value){
+                      quantidade = int.parse(value);
+                    },
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(labelText: 'Quantidade:'),
                   ),
                   TextFormField(
+                      onChanged: (value){
+                        foto = value;
+                      },
                       onSaved: (value) => _obra.foto = value,
                       decoration: InputDecoration(labelText: 'Endereço Foto:')),
                 ],
@@ -68,6 +104,13 @@ class ObraForm extends StatelessWidget{
         ));
   }
 
-  
-
+  Future salvar()async{
+    final itens = NewObra(
+      nome: nome,
+      ativo: ativo,
+      quantidade: quantidade,
+      foto: foto
+    );
+    await DatabaseConnect.instance.inserirDadosTabelaObra(itens);
+  }
 }

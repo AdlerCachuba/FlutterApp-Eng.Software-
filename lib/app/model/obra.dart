@@ -7,3 +7,4 @@ String foto;
 Obra({this.nome,this.ativo,this.quantidade,this.foto});
 
 }
+
