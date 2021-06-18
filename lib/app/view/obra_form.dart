@@ -56,7 +56,6 @@ class _ObraFormState extends State<ObraForm> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                      onSaved: (value) => _obra.nome = value,
                       onChanged: (value){
                         nome = value;
                       },
@@ -86,7 +85,6 @@ class _ObraFormState extends State<ObraForm> {
                     ),
                   ),
                   TextFormField(
-                    onSaved: (value) => _obra.quantidade = int.parse(value),
                     onChanged: (value){
                       quantidade = int.parse(value);
                     },

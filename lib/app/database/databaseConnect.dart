@@ -12,7 +12,7 @@ class DatabaseConnect{
   Future<Database> get criaBancoDados async {
     if(_databaseConnect != null) return _databaseConnect;
 
-    _databaseConnect = await _initDB('bancoLocakl.db');
+    _databaseConnect = await _initDB('bancoLocal.db');
     return _databaseConnect;
   }
 
@@ -27,7 +27,6 @@ class DatabaseConnect{
     final intType = 'INTEGER NOT NULL';
     final textType = 'TEXT NOT NULL';
     final varType = 'VARCHAR(255) NOT NULL';
-
     final varFKType = 'INTEGER';
 
   //Tabela Obra
@@ -36,7 +35,7 @@ class DatabaseConnect{
     ${NewObra.ID} $idType, 
      ${NewObra.NOME} $textType, 
       ${NewObra.ATIVO} $textType, 
-       ${NewObra.QUANTIDADE} $textType, 
+       ${NewObra.QUANTIDADE} $varFKType, 
         ${NewObra.FOTO} $textType
     )
     ''');

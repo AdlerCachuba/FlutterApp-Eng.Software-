@@ -1,10 +1,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_adler/app/data/data.dart';
+import 'package:flutter_adler/app/database/databaseConnect.dart';
 import 'package:flutter_adler/app/model/obra.dart';
 
-class ObraList  extends StatelessWidget {
-  var _list = lista;
+class ObraList  extends StatefulWidget {
+  @override
+  _ObraListState createState() => _ObraListState();
+}
+
+class _ObraListState extends State<ObraList> {
+  var _list = [];
+
+  Future trazerLista() async{
+    var retorno  = await DatabaseConnect.instance.buscarTodasObras();
+    setState(() {
+      _list = retorno;
+    });
+  }
+  @override
+  void initState() {
+    trazerLista();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +39,12 @@ class ObraList  extends StatelessWidget {
         ),
         body: ListView.builder(
           itemCount: _list.length,
-          itemBuilder: (_context, indice) {
-            Obra obra = _list[indice];
-            final avatar = obra.foto.isEmpty  ? CircleAvatar(child: Icon(Icons.person)) : CircleAvatar(  backgroundImage: NetworkImage(obra.foto));
+          itemBuilder: (context, i) {
+            final avatar = _list[i].foto.isEmpty  ? CircleAvatar(child: Icon(Icons.person)) : CircleAvatar(  backgroundImage: NetworkImage(_list[i].foto));
             return ListTile(
               leading: avatar,
-              title: Text(obra.nome),
-              subtitle: Text(obra.quantidade.toString()),
+              title: Text(_list[i].nome),
+              subtitle: Text(_list[i].quantidade.toString()),
               trailing: Container(
                 width: 100,
                 child: Row(
