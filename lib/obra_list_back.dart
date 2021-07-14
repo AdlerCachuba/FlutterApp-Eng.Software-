@@ -24,7 +24,7 @@ abstract class _ObraListBack with Store{
   }
 
   goToForm(BuildContext context, [NewObra obra]){
-    Navigator.of(context).pushNamed('lista',arguments: obra).then(updateList);
+    Navigator.of(context).pushNamed('form',arguments: obra).then(updateList);
   }
 
   remove(int id){
