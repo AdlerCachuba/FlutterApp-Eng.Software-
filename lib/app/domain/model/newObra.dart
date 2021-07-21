@@ -14,12 +14,12 @@ class NewObra {
   static final String FOTO = 'foto';
 
   final int id;
-  final String nome;
-  final String ativo;
-  final int quantidade;
-  final String foto;
+  String nome;
+  String ativo;
+  int quantidade;
+  String foto;
 
-  const NewObra({
+  NewObra({
     this.id,
     this.nome,
     this.ativo,

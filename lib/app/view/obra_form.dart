@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adler/app/view/obra_form_back.dart';
 
 class ObraForm extends StatelessWidget {
-  const ObraForm({Key key}) : super(key: key);
+  ObraForm({Key key}) : super(key: key);
 
+  final _form = GlobalKey<FormState>();
 
   Widget fieldName(ObraFormBack back) {
     return TextFormField(
+      validator: back.validaNomeObra,
+        onSaved: (nv)=> back.obra.nome = nv,
         initialValue: back.obra.nome,
         decoration: InputDecoration(labelText: 'nome:', hintText: 'João da Silva'));
   }
@@ -42,6 +45,7 @@ class ObraForm extends StatelessWidget {
   Widget fieldFoto(ObraFormBack back) {
     return TextFormField(
         initialValue: back.obra.foto,
+        onSaved: (nv)=> back.obra.foto = nv,
         decoration: InputDecoration(
             labelText: 'URL',
             border:
@@ -50,6 +54,8 @@ class ObraForm extends StatelessWidget {
 
   Widget fieldQtd(ObraFormBack back) {
     return TextFormField(
+      validator: back.validaQtdd,
+      onSaved: (nv)=> back.obra.quantidade = int.parse(nv),
       initialValue: back.obra.quantidade as String,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Quantidade:'),
@@ -66,13 +72,19 @@ class ObraForm extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                Navigator.of(context).pushNamed('lista');
+                _form.currentState.validate();
+                _form.currentState.save();
+                if(_back.isValid){
+                  _back.save();
+                  Navigator.of(context).pushNamed('lista');
+                }
               })
         ],
       ),
       body: Padding(
         padding: EdgeInsets.all(15),
         child: Form(
+          key: _form,
           child: Column(
             children: [
               fieldName(_back),
