@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adler/app/database/databaseConnect.dart';
 import 'package:flutter_adler/app/domain/model/newObra.dart';
 import 'package:flutter_adler/obra_list_back.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -55,7 +54,7 @@ class _ObraListState extends State<ObraList> {
             IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('form');
+                  _back.goToForm(context);
                 })
           ],
         ),
@@ -80,6 +79,9 @@ class _ObraListState extends State<ObraList> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          onTap: (){
+                            _back.goToDetails(context,_list[i]);
+                          },
                           subtitle: Text(_list[i].quantidade.toString()),
                           trailing: Container(
                             width: 100,
