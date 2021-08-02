@@ -5,6 +5,18 @@ import 'package:flutter_adler/app/view/obra_details.back.dart';
 class ObraDetails extends StatelessWidget {
   const ObraDetails({Key key}) : super(key: key);
 
+  showModalError(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("Alerta!"),
+            content: Text("Não foi possível encontrar um APP compatível"),
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var _back = ObraDetailsBack(context);
@@ -12,7 +24,7 @@ class ObraDetails extends StatelessWidget {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints){
       var width = constraints.biggest.width;
       var radius = width/3;
-/*      var heigth = constraints.biggest.height;*/
+      var heigth = constraints.biggest.height;
       return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -24,6 +36,29 @@ class ObraDetails extends StatelessWidget {
               Card(child: ListTile(
                 title: Text('Quantidade:'),
                 subtitle: Text('${obra.quantidade}'),
+                trailing: Container(
+                  width: width / 4,
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            _back.lauchMessage(showModalError);
+                          },
+                          icon: Icon(
+                            Icons.message,
+                            color: Colors.blue,
+                          )),
+                      IconButton(
+                          onPressed: () {
+                            _back.lauchPhone(showModalError);
+                          },
+                          icon: Icon(
+                            Icons.phone,
+                            color: Colors.blue,
+                          ))
+                    ],
+                  ),
+                ),
               ),),
               Card(child: ListTile(
                 title: Text('Ativo:'),

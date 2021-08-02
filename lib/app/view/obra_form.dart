@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adler/app/view/obra_form_back.dart';
 
-class ObraForm extends StatelessWidget {
+class ObraForm extends StatefulWidget {
   ObraForm({Key key}) : super(key: key);
 
+  @override
+  _ObraFormState createState() => _ObraFormState();
+}
+ObraFormBack back;
+int variavel= int.parse(back.obra.ativo);
+
+class _ObraFormState extends State<ObraForm> {
   final _form = GlobalKey<FormState>();
 
   Widget fieldName(ObraFormBack back) {
@@ -15,28 +22,32 @@ class ObraForm extends StatelessWidget {
   }
 
   Widget fieldAtivo(ObraFormBack back) {
-    int variavel = 0;
     return ListTile(
       title: const Text('Ativo'),
       leading: Radio(
         value: 1,
         groupValue: variavel,
         onChanged: (value){
-/*          back.obra.ativo = value;*/
+          setState(() {
+            variavel = value;
+            back.obra.ativo = value;
+          });
         },
       ),
     );
   }
 
   Widget fieldInativo(ObraFormBack back) {
-    int variavel = 0;
     return ListTile(
-      title: const Text('Ativo'),
+      title: const Text('Inativo'),
       leading: Radio(
         value: 2,
         groupValue: variavel,
         onChanged: (value){
-/*          back.obra.ativo = value;*/
+          setState(() {
+            variavel = value;
+            back.obra.ativo = value;
+          });
         },
       ),
     );
@@ -89,9 +100,32 @@ class ObraForm extends StatelessWidget {
             children: [
               fieldName(_back),
               SizedBox(height: 15),
-              fieldAtivo(_back),
               SizedBox(height: 15),
-              fieldInativo(_back),
+            ListTile(
+              title: const Text('Ativo'),
+              leading: Radio(
+                value: 1,
+                groupValue: variavel,
+                onChanged: (value){
+                  setState(() {
+                    variavel = value;
+                  });
+                }
+              ),
+            ),
+              SizedBox(height: 15),
+            ListTile(
+              title: const Text('Inativo'),
+              leading: Radio(
+                value: 2,
+                groupValue: variavel,
+                onChanged: (value){
+                  setState(() {
+                    variavel = value;
+                  });
+                },
+              ),
+            ),
               SizedBox(height: 15),
               fieldQtd(_back),
               SizedBox(height: 15),

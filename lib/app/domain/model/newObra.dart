@@ -12,12 +12,14 @@ class NewObra {
   static final String ATIVO = 'ativo';
   static final String QUANTIDADE = 'quantidade';
   static final String FOTO = 'foto';
+  static final String CONTATO = 'contato';
 
   final int id;
   String nome;
   String ativo;
   int quantidade;
   String foto;
+  String contato;
 
   NewObra({
     this.id,
@@ -25,6 +27,7 @@ class NewObra {
     this.ativo,
     this.quantidade,
     this.foto,
+    this.contato
   });
 
   NewObra copy({
@@ -33,12 +36,14 @@ class NewObra {
     String ativo,
     int quantidade,
     String foto,
+    String contato
   })=>NewObra(
     id: id ?? this.id,
     nome : nome ?? this.nome,
     ativo : ativo ?? this.ativo,
     quantidade : quantidade ?? this.quantidade,
-      foto : foto ?? this.foto
+      foto : foto ?? this.foto,
+    contato: contato ?? this.contato
 
   );
 

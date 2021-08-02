@@ -21,6 +21,7 @@ class ObraFormBack{
   }
 
   save() async{
+    obra.ativo = "Ativo";
     await _servico.inserirDadosTabelaObra(obra);
   }
 
