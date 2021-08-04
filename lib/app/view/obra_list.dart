@@ -3,57 +3,57 @@ import 'package:flutter_adler/app/domain/model/newObra.dart';
 import 'package:flutter_adler/obra_list_back.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class ObraList  extends StatefulWidget {
+class ObraList extends StatefulWidget {
   @override
   _ObraListState createState() => _ObraListState();
 }
 
 class _ObraListState extends State<ObraList> {
-
   final _back = ObraListBack();
 
-  CircleAvatar avatar(String url){
-    try{
-      return CircleAvatar(backgroundImage: NetworkImage(url));
-    }catch(e){
-      return CircleAvatar(child: Icon(Icons.person));
-    }
+  CircleAvatar avatar(String url) {
+    return (Uri.tryParse(url).isAbsolute)
+        ? CircleAvatar(backgroundImage: NetworkImage(url))
+        : CircleAvatar(child: Icon(Icons.person));
   }
 
-  Widget editarButton(Function edit){
-    return IconButton(onPressed: edit, icon: Icon(Icons.edit),color: Colors.deepOrange);
+  Widget editarButton(Function edit) {
+    return IconButton(
+        onPressed: edit, icon: Icon(Icons.edit), color: Colors.deepOrange);
   }
 
-  Widget remover(BuildContext context, Function remove){
+  Widget remover(BuildContext context, Function remove) {
     return IconButton(
       icon: Icon(Icons.delete),
       color: Colors.red,
-      onPressed: (){
-        showDialog(context: context,
-            builder: (context)=>AlertDialog(
-              title: Text("Excluir"),
-              content: Text("Confirma Exclusão?"),
-              actions: [
-                FlatButton(onPressed: (){
-                  Navigator.of(context).pop();
-                }, child: Text("Não")),
-                FlatButton(onPressed: remove, child: Text("Sim")),
-              ],
-            ));
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text("Excluir"),
+                  content: Text("Confirma Exclusão?"),
+                  actions: [
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Não")),
+                    FlatButton(onPressed: remove, child: Text("Sim")),
+                  ],
+                ));
       },
-
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          title: Text('Obra'),
+          title: Text('Obras'),
           actions: [
             IconButton(
                 icon: Icon(Icons.add),
-                onPressed: () {
+                onPressed: () async{
                   _back.goToForm(context);
                 })
           ],
@@ -79,16 +79,18 @@ class _ObraListState extends State<ObraList> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: (){
-                            _back.goToDetails(context,_list[i]);
+                          onTap: () {
+                            _back.goToDetails(context, _list[i]);
                           },
-                          subtitle: Text(_list[i].quantidade.toString()),
+                          subtitle: Text("Quantidade "+_list[i].quantidade.toString()),
                           trailing: Container(
                             width: 100,
                             child: Row(
                               children: [
-                                editarButton((){_back.goToForm(context,_list[i]);}),
-                                remover(context,(){
+                                editarButton(() {
+                                  _back.goToForm(context, _list[i]);
+                                }),
+                                remover(context, () {
                                   _back.remove(_list[i].id);
                                   Navigator.of(context).pop();
                                 }),

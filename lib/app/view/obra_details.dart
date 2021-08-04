@@ -27,25 +27,26 @@ class ObraDetails extends StatelessWidget {
       var heigth = constraints.biggest.height;
       return Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(26.0),
           child: ListView(
             children: [
               (Uri.tryParse(obra.foto).isAbsolute) ?
               CircleAvatar(backgroundImage: NetworkImage(obra.foto),radius: radius,) : CircleAvatar(child: Icon(Icons.person, size: width/2,),radius: radius,),
+              SizedBox(height: 10,),
               Center(child: Text('${obra.nome}',style: TextStyle(fontSize: 25),),),
               Card(child: ListTile(
-                title: Text('Quantidade:'),
-                subtitle: Text('${obra.quantidade}'),
+                title: Text('Agendar visita:'),
+                subtitle: Text('(11) 3423 - 1100',style: TextStyle(fontSize: 12),),
                 trailing: Container(
                   width: width / 4,
                   child: Row(
                     children: [
                       IconButton(
                           onPressed: () {
-                            _back.lauchMessage(showModalError);
+                            _back.launchWhatsapp();
                           },
                           icon: Icon(
-                            Icons.message,
+                            Icons.whatshot_sharp,
                             color: Colors.blue,
                           )),
                       IconButton(
@@ -61,8 +62,8 @@ class ObraDetails extends StatelessWidget {
                 ),
               ),),
               Card(child: ListTile(
-                title: Text('Ativo:'),
-                subtitle: Text('${obra.ativo}'),
+                title: Text('Sessão da Obra:'),
+                subtitle: Text('${obra.sessao}'),
               ),),
             ],
           ),

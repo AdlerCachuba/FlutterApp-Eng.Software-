@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680040340735",
+    "project_id": "adler-flutter",
+    "storage_bucket": "adler-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680040340735:android:4bfe7634830bb46ae4c0ca",
+        "android_client_info": {
+          "package_name": "com.example.flutter_adler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680040340735-32ns9vh2tjvnd7eorlb2d73gc6esvks2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh-9A3ru3I723zLzn--dTQcXXxuDomTVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680040340735-32ns9vh2tjvnd7eorlb2d73gc6esvks2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

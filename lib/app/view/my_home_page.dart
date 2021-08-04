@@ -1,45 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adler/app/MyApp.dart';
 import 'package:flutter_adler/controle_main.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class MyHomePage extends StatelessWidget {
-  final controle = ControleMain();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+Widget botaoTela(String label,BuildContext context, String rota) {
+  return Container(
+    height: 50,
+    alignment: Alignment.centerLeft,
+    decoration: BoxDecoration(
+      color: Colors.deepOrange,
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    child: SizedBox.expand(
+      child: FlatButton(
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(rota);
+        },
+      ),
+    ),
+  );
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    print('construiu o home');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aula Flutter'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.of(context).pushNamed('form');
-              })
-        ],
+        title: Center(
+          child: Text('Museu Gengar'),
+        )
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times',
+            Container(
+              width: 200,
+              height: 200,
+              child: Image.asset('assets/img/gengar.png'),
             ),
-            Observer(builder: (context){
-              return Text(
-                '${controle.contador}',
-                style: Theme.of(context).textTheme.headline4,
-              );
-            }),
+            SizedBox(height: 30),
+            Container(
+              child: Center(
+                child: Text(
+                  'Lista de Obras',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepOrange,
+                      fontSize: 26),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  botaoTela('Criar Obra',context, 'obra-form'),
+                  SizedBox(height: 15,),
+                  botaoTela('Ver Obras',context, 'lista'),
+                ],
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: controle.adicionar(),
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_adler/app/database/databaseConnect.dart';
+import 'package:flutter_adler/app/domain/interfaces/obra_dao.dart';
 import 'package:flutter_adler/app/domain/model/newObra.dart';
 import 'package:flutter_adler/app/domain/services/obra_service.dart';
+import 'package:get_it/get_it.dart';
 
 
 class ObraFormBack{
 
-  var _servico = DatabaseConnect.instance;
+  var _servico = GetIt.I.get<ObraService>();
   var _validacao = ObraService();
   bool _nomeIsValid;
   bool _qtddIsValid;
@@ -21,8 +23,7 @@ class ObraFormBack{
   }
 
   save() async{
-    obra.ativo = "Ativo";
-    await _servico.inserirDadosTabelaObra(obra);
+    await _servico.save(obra);
   }
 
   String validaNomeObra(String nomeObra){
@@ -35,9 +36,9 @@ class ObraFormBack{
     }
   }
 
-  String validaQtdd(var qtdd){
+  String validaQtdd(String qtdd){
     try{
-      _validacao.validarQuantidade(int.parse(qtdd));
+      _validacao.validarQuantidade(qtdd);
       _qtddIsValid = true;
     }catch(e){
       _qtddIsValid = false;

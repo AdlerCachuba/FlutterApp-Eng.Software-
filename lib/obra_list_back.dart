@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_adler/app/database/databaseConnect.dart';
+import 'package:flutter_adler/app/domain/services/obra_service.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'app/definition.dart';
+import 'app/MyApp.dart';
 import 'app/domain/model/newObra.dart';
 
 part 'obra_list_back.g.dart';
@@ -10,14 +12,14 @@ part 'obra_list_back.g.dart';
 class ObraListBack = _ObraListBack with _$ObraListBack;
 
 abstract class _ObraListBack with Store{
-  var _service = DatabaseConnect.instance;
+  var _service = GetIt.I.get<ObraService>();
 
   @observable
   Future<List<NewObra>> list;
 
   @action
   updateList([dynamic value]){
-    list = _service.buscarTodasObras();
+    list = _service.find();
   }
 
   _ObraListBack(){
@@ -25,15 +27,15 @@ abstract class _ObraListBack with Store{
   }
 
   goToDetails(BuildContext context, NewObra obra){
-    Navigator.of(context).pushNamed(Definition.OBRA_DETAILS,arguments: obra);
+    Navigator.of(context).pushNamed(MyApp.OBRA_DETAILS,arguments: obra);
   }
 
   goToForm(BuildContext context, [NewObra obra]){
-    Navigator.of(context).pushNamed('form',arguments: obra).then(updateList);
+    Navigator.of(context).pushNamed(MyApp.OBRA_FORM,arguments: obra).then(updateList);
   }
 
-  remove(int id){
-    _service.deletarObraPorId(id);
+  remove(dynamic id){
+    _service.remove(id);
     updateList();
   }
 

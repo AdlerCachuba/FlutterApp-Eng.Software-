@@ -4,7 +4,7 @@ final String tableObra = 'TB_OBRA';
 class NewObra {
 
   static final List<String> values = [
-    ID, NOME, ATIVO, QUANTIDADE, FOTO
+    ID, NOME, ATIVO, QUANTIDADE, FOTO,SESSAO
   ];
 
   static final String ID = '_id';
@@ -12,14 +12,14 @@ class NewObra {
   static final String ATIVO = 'ativo';
   static final String QUANTIDADE = 'quantidade';
   static final String FOTO = 'foto';
-  static final String CONTATO = 'contato';
+  static final String SESSAO = 'sessao';
 
-  final int id;
+  final dynamic id;
   String nome;
   String ativo;
   int quantidade;
   String foto;
-  String contato;
+  String sessao;
 
   NewObra({
     this.id,
@@ -27,7 +27,7 @@ class NewObra {
     this.ativo,
     this.quantidade,
     this.foto,
-    this.contato
+    this.sessao
   });
 
   NewObra copy({
@@ -36,14 +36,14 @@ class NewObra {
     String ativo,
     int quantidade,
     String foto,
-    String contato
+    String sessao
   })=>NewObra(
     id: id ?? this.id,
     nome : nome ?? this.nome,
     ativo : ativo ?? this.ativo,
     quantidade : quantidade ?? this.quantidade,
       foto : foto ?? this.foto,
-    contato: contato ?? this.contato
+    sessao: sessao ?? this.sessao
 
   );
 
@@ -52,7 +52,8 @@ class NewObra {
     nome : json[NOME] as String,
     ativo : json [ATIVO] as String,
     quantidade : json[QUANTIDADE] as int,
-    foto : json[FOTO] as String
+    foto : json[FOTO] as String,
+      sessao : json[SESSAO] as String
       // quando precisar enviar datas para o banco, precisa enviar como String, ex:
     // data: DateTime.parse(json[DATA] as String)
   );
@@ -62,7 +63,8 @@ class NewObra {
     NOME : nome,
     ATIVO : ativo,
     QUANTIDADE : quantidade,
-    FOTO : foto
+    FOTO : foto,
+    SESSAO : sessao
     //e se tivesse DATA aqui, seria
     // DATA : data.toIso8601String()
   };
